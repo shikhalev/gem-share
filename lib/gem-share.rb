@@ -18,9 +18,11 @@ class SharePath
   end
 
   attr_reader :name
+  attr_accessor :prefix
 
   def initialize name
     @name = name
+    @prefix = ''
     # TODO: defaults
   end
 
@@ -30,6 +32,7 @@ class SharePath
 
   def register_vendor_path path = nil
     @vendor_paths ||= []
+    # TODO: gemspec as path
     pth = path || detect_share_path(caller_locations[0].path)
     if pth
       full = File.expand_path pth
@@ -50,11 +53,18 @@ class SharePath
   attr_accessor :application_path
 
   def to_a
-    
+    [ *@vendor_paths, @system_path, @user_path, @application_path ]
   end
 
   def search name
     list = to_a
+    list.each do |path|
+      ep = File.expand_path @prefix + name, path
+      if File.exist?(ep)
+        return ep
+      end
+    end
+    nil
   end
 
   def get_file name
