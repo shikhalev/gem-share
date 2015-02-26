@@ -4,6 +4,8 @@ require 'rubygems'
 
 class SharePath
 
+  VERSION = [ 0, 1 ]
+
   class << self
 
     private :new
