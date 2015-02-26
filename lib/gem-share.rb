@@ -50,10 +50,10 @@ class SharePath
 
   attr_accessor :system_path
   attr_accessor :user_path
-  attr_accessor :application_path
+  attr_accessor :instance_path
 
   def to_a
-    [ *@vendor_paths, @system_path, @user_path, @application_path ]
+    [ *@vendor_paths, *@system_path, *@user_path, *@instance_path ]
   end
 
   def search name

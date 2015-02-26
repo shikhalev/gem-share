@@ -2,9 +2,12 @@
 
 require 'pp'
 
-a = [1, 2, 3]
+a = nil
+b = nil
+c = []
+d = 'Ololo'
+e = [ 'Lalala' ]
 
-b = [:alpha, *a, nil, 'Ololo']
+r = [ *a, *b, *c, *d, *e ]
 
-p b
-
+pp r
