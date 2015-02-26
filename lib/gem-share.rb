@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require 'rubygems'
+
 class SharePath
 
   class << self
@@ -15,28 +17,55 @@ class SharePath
 
     alias :[] :get
 
+    def app_name
+      @app_name ||= File.basename $0, '.rb'
+    end
+
+    def default_system_path
+      "/var/share/#{app_name}"
+    end
+
+    def default_user_path
+      File.expand_path "~/.local/#{app_name}/share"
+    end
+
+    def default_instance_path
+      File.expand_path 'share', '.'
+    end
+
   end
 
   attr_reader :name
-  attr_accessor :prefix
 
   def initialize name
     @name = name
-    @prefix = ''
-    # TODO: defaults
+    @vendor_paths = []
+    @system_path = self.class.default_system_path
+    @user_path = self.class.default_user_path
+    @instance_path = self.class.default_instance_path
   end
 
   def detect_share_path src
-    # TODO
+    if src
+      base = src[ /^\/.*\/(lib|bin)\// ]
+      base && File.expand_path('../share', base)
+    else
+      nil
+    end
   end
 
   def register_vendor_path path = nil
     @vendor_paths ||= []
-    # TODO: gemspec as path
-    pth = path || detect_share_path(caller_locations[0].path)
-    if pth
-      full = File.expand_path pth
-      @vendor_paths << full unless @vendor_paths.include?(full)
+    case path
+    when String
+      full = File.expand_path path
+    when Gem::Specification
+      full = File.expand_path 'share', path.gem_dir
+    else
+      full = detect_share_path caller_locations[0].path
+    end
+    if full && File.directory?(full) && !@vendor_paths.include?(full)
+      @vendor_paths << full
       full
     else
       nil
@@ -59,7 +88,7 @@ class SharePath
   def search name
     list = to_a
     list.each do |path|
-      ep = File.expand_path @prefix + name, path
+      ep = File.expand_path name, path
       if File.exist?(ep)
         return ep
       end
