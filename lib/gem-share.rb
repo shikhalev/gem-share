@@ -9,14 +9,14 @@ module Share
   class Error < StandardError; end
 
   def appname
-    @@appname ||= File.basename $APPLICATION_NAME, '.rb'
+    @@appname ||= File.basename $0, '.rb'
     @@appname
   end
 
   def set_appname name
     case name
     when nil
-      @@appname = File.basename $APPLICATION_NAME, '.rb'
+      @@appname = File.basename $0, '.rb'
     when String, Symbol
       @@appname = name.to_s
     else
@@ -139,7 +139,6 @@ module Share
       :register_vendor_path
 
   def share_paths
-    p 's'
     [ *vendor_paths, *system_path, *user_path, *instance_path ]
   end
 

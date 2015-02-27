@@ -3,4 +3,6 @@
 require 'pp'
 require_relative 'lib/gem-share'
 
-pp
+Share.register_vendor_path
+
+pp Share::to_a
