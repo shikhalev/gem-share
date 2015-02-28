@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require 'set_version'
-require_relative 'lib/gem-share'
+require_relative 'lib/share-paths'
 
 Gem::Specification.new do |g|
 
@@ -9,11 +9,11 @@ Gem::Specification.new do |g|
   g.summary = 'Manage search paths provided by some gems'
   g.author = 'Ivan Shikhalev'
   g.email = 'shikhalev@gmail.com'
-  g.homepage = 'https://github.com/shikhalev/gem-share'
+  g.homepage = 'https://github.com/shikhalev/share-paths'
   g.description = g.summary + '.'
   g.license = 'GNU LGPLv3'
 
-  g.files = [ 'lib/gem-share.rb', 'README.md', 'LICENSE' ]
+  g.files = [ 'lib/share-paths.rb', 'README.md', 'LICENSE' ]
 
   g.set_version(*Share::VERSION, git: true)
 
