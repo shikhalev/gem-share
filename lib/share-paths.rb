@@ -98,8 +98,8 @@ module Share
   end
 
   def share_by_src src
-    spec = Gem::Specification.find do |spec|
-      File.fnmatch File.join(spec.full_gem_path, '*'), src
+    spec = Gem::Specification.find do |spc|
+      File.fnmatch File.join(spc.full_gem_path, '*'), src
     end
     if spec
       share_by_gem spec
