@@ -11,7 +11,7 @@ code:
 ```Ruby
 require 'share-paths'
 
-Share.register_vendor_path
+Share::register_vendor_path
 ```
 
 At application find share files by:
