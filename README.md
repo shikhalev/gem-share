@@ -2,6 +2,9 @@
 
 Manage search paths provided by some gems.
 
+[![Gem Version](https://badge.fury.io/rb/share-paths.svg)](http://badge.fury.io/rb/share-paths)
+[![GitHub license](https://img.shields.io/badge/license-LGPLv3-orange.svg?style=flat)](https://raw.githubusercontent.com/shikhalev/share-paths/master/LICENSE)
+[![Code Climate](https://codeclimate.com/github/shikhalev/share-paths/badges/gpa.svg)](https://codeclimate.com/github/shikhalev/share-paths)
 
 ## Usage
 
